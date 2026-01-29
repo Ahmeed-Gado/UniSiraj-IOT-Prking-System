@@ -44,7 +44,7 @@ export default function ContactPage() {
                         Get In <span className="bg-gradient-to-r from-brand-gold to-accent-cyan bg-clip-text text-transparent">Touch</span>
                     </h1>
                     <p className="text-xl text-gray-400">
-                        Have questions? We'd love to hear from you.
+                        Have questions? We&apos;d love to hear from you.
                     </p>
                 </motion.div>
 
