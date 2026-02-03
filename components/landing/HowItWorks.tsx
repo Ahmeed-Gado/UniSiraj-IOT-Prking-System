@@ -8,15 +8,15 @@ import { slideInFromBottom } from '@/lib/utils/animations';
 const steps = [
     {
         number: '01',
-        title: 'Sensor Detection',
-        description: 'Ultrasonic sensors detect vehicle presence in each parking slot',
+        title: 'IR Sensor Detection',
+        description: 'IR sensors detect vehicle presence in each parking slot with precision',
         icon: Wifi,
         color: 'from-available to-accent-cyan',
     },
     {
         number: '02',
-        title: 'ESP32 Processing',
-        description: 'ESP32 microcontroller processes sensor data and sends updates',
+        title: 'ESP32 Processing & Gate Control',
+        description: 'ESP32 processes sensor data and controls servo motors for automated gate operation',
         icon: Zap,
         color: 'from-accent-cyan to-accent-blue',
     },

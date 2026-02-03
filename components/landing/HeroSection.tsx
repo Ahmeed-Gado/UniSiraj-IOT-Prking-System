@@ -85,10 +85,10 @@ export function HeroSection() {
                             <div className="relative w-full h-full glass rounded-3xl p-8 flex items-center justify-center">
                                 {/* Simple Parking Lot Visualization */}
                                 <div className="grid grid-cols-2 gap-6">
-                                    <ParkingSlotPreview status="available" label="A1" />
+                                    <ParkingSlotPreview status="occupied" label="A1" />
                                     <ParkingSlotPreview status="occupied" label="A2" />
                                     <ParkingSlotPreview status="available" label="A3" />
-                                    <ParkingSlotPreview status="available" label="A4" />
+                                    <ParkingSlotPreview status="occupied" label="A4" />
                                 </div>
                             </div>
                         </motion.div>
@@ -107,8 +107,8 @@ function ParkingSlotPreview({ status, label }: { status: 'available' | 'occupied
         <motion.div
             whileHover={{ scale: 1.05 }}
             className={`w-24 h-32 rounded-lg border-2 flex flex-col items-center justify-center gap-2 ${status === 'available'
-                    ? 'border-available bg-available/10 glow-available'
-                    : 'border-occupied bg-occupied/10'
+                ? 'border-available bg-available/10 glow-available'
+                : 'border-occupied bg-occupied/10'
                 }`}
         >
             <div className={`w-3 h-3 rounded-full ${status === 'available' ? 'bg-available animate-pulse' : 'bg-occupied'

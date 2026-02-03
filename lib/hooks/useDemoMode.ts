@@ -8,10 +8,21 @@ export function useDemoMode() {
     const [demoSlots, setDemoSlots] = useState<ParkingSlot[]>([]);
 
     const initializeDemoSlots = useCallback(() => {
+        // Fixed demo configuration:
+        // A1, A2, A4 = Always Occupied (Red)
+        // A3, A5 = Always Available (Green)
+        const slotStatuses: Record<string, 'available' | 'occupied'> = {
+            'A1': 'occupied',
+            'A2': 'occupied',
+            'A3': 'available',
+            'A4': 'occupied',
+            'A5': 'available',
+        };
+
         const slots: ParkingSlot[] = ['A1', 'A2', 'A3', 'A4', 'A5'].map((slotId) => ({
             id: slotId,
             slotId,
-            status: Math.random() > 0.5 ? 'available' : 'occupied',
+            status: slotStatuses[slotId],
             lastUpdated: new Date(),
             sensorId: `DEMO_SENSOR_${slotId}`,
         }));
@@ -21,22 +32,7 @@ export function useDemoMode() {
     useEffect(() => {
         if (isDemoMode) {
             initializeDemoSlots();
-
-            // Simulate random status changes every 5-10 seconds
-            const interval = setInterval(() => {
-                setDemoSlots((prevSlots) => {
-                    const randomIndex = Math.floor(Math.random() * prevSlots.length);
-                    const newSlots = [...prevSlots];
-                    newSlots[randomIndex] = {
-                        ...newSlots[randomIndex],
-                        status: newSlots[randomIndex].status === 'available' ? 'occupied' : 'available',
-                        lastUpdated: new Date(),
-                    };
-                    return newSlots;
-                });
-            }, Math.random() * 5000 + 5000); // Random interval between 5-10 seconds
-
-            return () => clearInterval(interval);
+            // No interval - slots stay fixed with no updates
         }
     }, [isDemoMode, initializeDemoSlots]);
 

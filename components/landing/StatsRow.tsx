@@ -4,15 +4,18 @@ import { motion } from 'framer-motion';
 import { Car, CheckCircle, XCircle } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { AnimatedCounter } from '../ui/AnimatedCounter';
-import { useRealtimeSlots } from '@/lib/hooks/useRealtime';
 import { staggerContainer, scaleIn } from '@/lib/utils/animations';
+import { useRealtimeSlots } from '@/lib/hooks/useRealtime';
 
 export function StatsRow() {
     const { slots, loading } = useRealtimeSlots();
 
+    // Calculate real values from slots
     const totalSlots = slots.length || 5;
     const availableSlots = slots.filter(s => s.status === 'available').length;
     const occupiedSlots = slots.filter(s => s.status === 'occupied').length;
+
+    // Default to 0 if loading to avoid NaN
     const occupancyRate = totalSlots > 0 ? Math.round((occupiedSlots / totalSlots) * 100) : 0;
 
     const stats = [
@@ -47,6 +50,14 @@ export function StatsRow() {
         },
     ];
 
+    if (loading && slots.length === 0) {
+        return (
+            <div className="py-20 px-4 text-center text-gray-400">
+                <div className="animate-pulse">Loading live parking data...</div>
+            </div>
+        );
+    }
+
     return (
         <section className="py-20 px-4">
             <motion.div
@@ -63,14 +74,8 @@ export function StatsRow() {
                                 <stat.icon className={`w-6 h-6 ${stat.color}`} />
                             </div>
                             <div className={`text-4xl font-bold ${stat.color} mb-2`}>
-                                {loading ? (
-                                    <div className="skeleton h-10 w-20 mx-auto rounded" />
-                                ) : (
-                                    <>
-                                        <AnimatedCounter value={stat.value} />
-                                        {stat.suffix && <span>{stat.suffix}</span>}
-                                    </>
-                                )}
+                                <AnimatedCounter value={stat.value} />
+                                {stat.suffix && <span>{stat.suffix}</span>}
                             </div>
                             <div className="text-sm text-gray-400">{stat.label}</div>
                         </Card>

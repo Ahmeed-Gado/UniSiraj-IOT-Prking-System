@@ -15,7 +15,7 @@ Professional animated web application for real-time IoT parking management with 
 
 - Node.js 18+ and npm
 - Firebase account
-- (Optional) ESP32 microcontroller with ultrasonic sensors for hardware integration
+- (Optional) ESP32 microcontroller with IR sensors, servo motors, and LCD display for hardware integration
 
 ## 🛠️ Installation
 
@@ -134,15 +134,29 @@ Toggle "Demo Mode" on the Live Parking page to simulate sensor data for presenta
 
 1. **Components Needed**:
    - ESP32 Development Board
-   - HC-SR04 Ultrasonic Sensors (5x)
+   - IR Sensors (5x) for vehicle detection
+   - Servo Motors (for gate control)
+   - LCD Display (16x2) for on-site information
    - Jumper wires
    - Power supply
 
-2. **Wiring** (for each sensor):
+2. **Wiring**:
+   
+   **IR Sensors** (for each sensor):
+   - VCC → 3.3V
+   - GND → GND
+   - OUT → GPIO pin (e.g., GPIO 5, 18, 19, 21, 22)
+   
+   **Servo Motors**:
    - VCC → 5V
    - GND → GND
-   - TRIG → GPIO pin (e.g., GPIO 5, 18, 19, 21, 22)
-   - ECHO → GPIO pin (e.g., GPIO 23, 25, 26, 27, 32)
+   - Signal → GPIO pin (e.g., GPIO 13, 14)
+   
+   **LCD Display (I2C)**:
+   - VCC → 5V
+   - GND → GND
+   - SDA → GPIO 21
+   - SCL → GPIO 22
 
 ### ESP32 Code Example
 

@@ -1,13 +1,17 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/lib/utils/cn';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
     variant?: 'primary' | 'secondary' | 'ghost';
     size?: 'sm' | 'md' | 'lg';
     loading?: boolean;
     children: React.ReactNode;
+    className?: string;
+    disabled?: boolean;
+    onClick?: () => void;
+    type?: 'button' | 'submit' | 'reset';
 }
 
 export function Button({
@@ -17,6 +21,7 @@ export function Button({
     className,
     children,
     disabled,
+    type = 'button',
     ...props
 }: ButtonProps) {
     const baseStyles = 'font-medium rounded-lg transition-all duration-300 ripple disabled:opacity-50 disabled:cursor-not-allowed';
@@ -39,6 +44,7 @@ export function Button({
             whileTap={{ scale: disabled || loading ? 1 : 0.95 }}
             className={cn(baseStyles, variants[variant], sizes[size], className)}
             disabled={disabled || loading}
+            type={type}
             {...props}
         >
             {loading ? (

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { overrideSlotStatus } from '@/lib/firebase/slots';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();

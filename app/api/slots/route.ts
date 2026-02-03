@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAllSlots, initializeSlots } from '@/lib/firebase/slots';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export async function GET() {
     try {
         // Initialize slots if they don't exist

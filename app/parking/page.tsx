@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Clock, Sun, Moon } from 'lucide-react';
 import { useRealtimeSlots } from '@/lib/hooks/useRealtime';
@@ -22,14 +22,24 @@ export default function ParkingPage() {
     const { theme, toggleTheme } = useTheme();
     const [selectedSlot, setSelectedSlot] = useState<ParkingSlot | null>(null);
     const [lastUpdated, setLastUpdated] = useState(new Date());
+    const [mounted, setMounted] = useState(false);
+
+    // Prevent hydration mismatch by only rendering after mount
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     // Use demo slots if demo mode is enabled, otherwise use real slots
     const slots = isDemoMode ? demoSlots : realSlots;
 
     // Update last updated time when slots change
-    useState(() => {
+    useEffect(() => {
         setLastUpdated(new Date());
-    });
+    }, [slots]);
+
+    if (!mounted) {
+        return <div className="min-h-screen pt-24 pb-12 px-4 flex items-center justify-center">Loading...</div>;
+    }
 
     return (
         <div className="min-h-screen pt-24 pb-12 px-4">

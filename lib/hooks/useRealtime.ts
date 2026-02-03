@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
 import { ParkingSlot, ActivityLog, Device } from '../firebase/slots';
 import {
-    subscribeToSlots,
     subscribeToActivityLogs,
     subscribeToDevices,
 } from '../firebase/slots';
+import { subscribeToSlots as subscribeToSlotsRTDB } from '../firebase/rtdb';
 
 export function useRealtimeSlots() {
     const [slots, setSlots] = useState<ParkingSlot[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = subscribeToSlots((updatedSlots) => {
+        // Use RTDB for real-time slot updates
+        const unsubscribe = subscribeToSlotsRTDB((updatedSlots) => {
             setSlots(updatedSlots);
             setLoading(false);
         });

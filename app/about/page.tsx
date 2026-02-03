@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { Code, Database, Wifi, Monitor } from 'lucide-react';
 import Image from 'next/image';
@@ -61,7 +63,7 @@ export default function AboutPage() {
                                 The UniSiraj Smart Parking System is an innovative IoT-based solution designed to modernize parking management for university campuses and public facilities. By leveraging real-time sensor data and cloud technology, we provide instant parking availability information to users.
                             </p>
                             <p>
-                                This system eliminates the frustration of searching for parking spots by displaying live occupancy status through an intuitive web interface. Ultrasonic sensors detect vehicle presence, ESP32 microcontrollers process the data, and Firebase ensures real-time synchronization across all devices.
+                                This system eliminates the frustration of searching for parking spots by displaying live occupancy status through an intuitive web interface. IR sensors detect vehicle presence with precision, ESP32 microcontrollers process the data and control servo motors for automated gate operation, while LCD displays show real-time information on-site. Firebase ensures real-time synchronization across all devices.
                             </p>
                             <p>
                                 Our goal is to reduce traffic congestion, save time, and improve the overall parking experience through smart technology.
@@ -93,7 +95,7 @@ export default function AboutPage() {
                         <TechCard
                             icon={Wifi}
                             title="Hardware"
-                            items={['ESP32 Microcontroller', 'Ultrasonic Sensors (HC-SR04)', 'WiFi Module']}
+                            items={['ESP32 Microcontroller', 'IR Sensors', 'Servo Motors (Gate Control)', 'LCD Display (16x2)', 'WiFi Module']}
                         />
                         <TechCard
                             icon={Monitor}
